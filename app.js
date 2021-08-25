@@ -2,12 +2,16 @@
 const sqlite3 = require('sqlite3').verbose();
 
 // Connect to db & check for errors!
-let db = new sqlite3.Database('db/database.db', sqlite3.OPEN_READWRITE, (err) => {
+let db = new sqlite3.Database('./db/database.db');
+
+/*
+        , sqlite3.OPEN_READONLY, (err) => {
     if(err){
             return console.log(err);
     }
     console.log('Connected to the local SQLite database.');
 });
+*/
 
 // Import express module
 const express = require("express");
@@ -27,19 +31,12 @@ app.use(bodyParser.urlencoded({ extended: false}));
 // Set the middleware (css, imgs, and extra js)
 app.use(express.static(__dirname + '/src')); 
 
-// Quiz Homepage
-
-app.get("/home", (req, res) => {
-        res.render('home', {name:'Antonio'});
-});
-
-
 // Port listener
 app.listen(port);
 
 // Here goes the post that handles data
 
-app.post('/submit-user-data', function (req, res){
+app.post('/submit-user-data', function (req, res, next){
         
         // There should be a function that checks whether or not the user filled out all the questions.
 
@@ -49,48 +46,71 @@ app.post('/submit-user-data', function (req, res){
                 console.log(x);
         });
         
-        res.send('Answers submitted successfully.');
-        
-        /*
-        // Here be the redirect for the results page
-        res.redirect('back');
-        */
+        if(checkifblank(useranswers)){
+               // res.redirect('results');
+                res.send('yeah whatever m8');
+        }else{
+            req.session.error = 'An error occured. Did you leave one of the spaces blank?';
+            return res.redirect('home');
+        };
+    //Send to results page
 });
 
-// Here be middleware!
+
+// Below is everything used for '/home'
 
 function getRandomInt(){
-        min = Math.ceil(1);
-        max = Math.floor(10);
+        min = Math.ceil(0);
+        max = Math.floor(9);
         return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function getQuestions(){
-        let questions = [];
-        
+var counter = [];
 
-        for(let i = 0; i < 5; i++){
-               questions.push(db.get(`select question from questions where id = ${getRandomInt()}`, (err, row) => {
-                        if(error){
-                                return console.error(err.message);
-                        }
-                        return row
-                }));
-        }
-        return questions;
+let addtoDoc = (array, key) => {
+        let tempobj = {};
+        
+        for(let y = 0; y < 5;y++){
+            let mynum = getRandomInt();
+            counter.push(`${mynum}`);
+            tempobj[`${key + y}`] = array[mynum];
+        };
+        return tempobj;
 };
 
-function isRight(array, usranswers){
-        let score = 0;
-        for(let i = 0; i < 5;i++){
-                if(db.get(`select answer from questions where question = ${array[i]}`) === useranswer[i]){
-                      score++;
-                    } else{
-                            console.log('You\'re wrong!');
-                    }
-        };
-        return score;
-}
 
+let neoContent = (req, res) => {
+        db.all('select question from questions', function(err, data){
+            if(err){
+                    console.log(err);
+            }else{
+                    let neoarray = [];
+                    data.forEach(function(item) {
+                            var x = item.question;
+                            //console.log(x);
+                            neoarray.push(x);
+                    });                    
+                    //console.log(addtoDoc(neoarray, 'qst'));
+                    res.render('home', addtoDoc(neoarray, 'qst'));
+                } 
+        });
+    return;
+};
 
+function checkifblank(array){
+        for(let x = 0; x < 5;x++){
+                // if user answer equals ''
+                if(array[x] === '' || undefined){
+                        return false;
+                } else{
+                        console.log('Answer is valid.'); }
+        }
+    return true;
+};
+
+// GET function for '/home'
+app.get("/home", (req, res) => {
+    neoContent(req, res);
+    setTimeout(() => {console.log(counter);}, 5000);
+});
 

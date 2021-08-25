@@ -1,10 +1,1 @@
-
-function isCorrect(array){
-
-
-
-
-
-
-};
-
+// null
