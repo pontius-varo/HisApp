@@ -1,17 +1,8 @@
 // Import sqlite3
 const sqlite3 = require('sqlite3').verbose();
 
-// Connect to db & check for errors!
+// Connect to db
 let db = new sqlite3.Database('./db/database.db');
-
-/*
-        , sqlite3.OPEN_READONLY, (err) => {
-    if(err){
-            return console.log(err);
-    }
-    console.log('Connected to the local SQLite database.');
-});
-*/
 
 // Import express module
 const express = require("express");
@@ -34,29 +25,6 @@ app.use(express.static(__dirname + '/src'));
 // Port listener
 app.listen(port);
 
-// Here goes the post that handles data
-
-app.post('/submit-user-data', function (req, res, next){
-        
-        // There should be a function that checks whether or not the user filled out all the questions.
-
-        let useranswers = [req.body.answer1, req.body.answer2, req.body.answer3, req.body.answer4, req.body.answer5];
-        
-        useranswers.forEach((x) => {
-                console.log(x);
-        });
-        
-        if(checkifblank(useranswers)){
-               // res.redirect('results');
-                res.send('yeah whatever m8');
-        }else{
-            req.session.error = 'An error occured. Did you leave one of the spaces blank?';
-            return res.redirect('home');
-        };
-    //Send to results page
-});
-
-
 // Below is everything used for '/home'
 
 function getRandomInt(){
@@ -64,8 +32,6 @@ function getRandomInt(){
         max = Math.floor(9);
         return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-
-var counter = [];
 
 let addtoDoc = (array, key) => {
         let tempobj = {};
@@ -84,10 +50,11 @@ let neoContent = (req, res) => {
             if(err){
                     console.log(err);
             }else{
+                    console.log(data)
                     let neoarray = [];
                     data.forEach(function(item) {
                             var x = item.question;
-                            //console.log(x);
+                            console.log(x);
                             neoarray.push(x);
                     });                    
                     //console.log(addtoDoc(neoarray, 'qst'));
@@ -97,16 +64,68 @@ let neoContent = (req, res) => {
     return;
 };
 
+//functions for results page
+
+function iscorrect(answers, useranswers){
+        let resultobj = {score: 0};
+        for(let x = 0; x < 5; x++){
+            if(answers[x] === useranswers[x]){
+                console.log('Correct');
+                resultobj.score += 1;
+            }else{
+                    console.log('Incorrect');
+            }
+        }
+
+        if(resultobj.score < 2){
+            console.log('GET GUD');
+            resultobj['verdict'] = 'Get Gud';
+        } else if (resultobj.score < 5){
+                console.log('Learn 2 google pleb')
+                resultobj['verdict'] = 'Learn to Google midwit';
+        }else {
+                console.log('Winrar');
+                resultobj['verdict'] = 'A fellow man of culture I see.';
+        }
+    return resultobj;
+}
+
 function checkifblank(array){
         for(let x = 0; x < 5;x++){
                 // if user answer equals ''
                 if(array[x] === '' || undefined){
+                        console.log('Invalid answer!');
                         return false;
                 } else{
-                        console.log('Answer is valid.'); }
+                        console.log('Answer is valid.'); 
+            }
         }
     return true;
 };
+
+let postContent = (req, res, useranswers) => {
+    db.all('select id, answer from questions', function(err, data) {
+            if(err){
+                    console.log(err);
+            }else{
+                    let postarray = [];
+                    
+                    for(let x = 0; x < 5;x++){
+                        console.log(data[counter[x]].answer);
+                        postarray.push(data[counter[x]].answer);
+                    }
+                    //console.log(postarray);
+                    //console.log(iscorrect(postarray, useranswers));
+                    //res.send('Kek');
+                    res.render('result', iscorrect(postarray,useranswers));
+            }
+
+    });
+        return;
+}
+
+// Counter that keeps track of what questions were used.
+var counter = [];
 
 // GET function for '/home'
 app.get("/home", (req, res) => {
@@ -114,3 +133,17 @@ app.get("/home", (req, res) => {
     setTimeout(() => {console.log(counter);}, 5000);
 });
 
+app.post('/submit-user-data', function (req, res){
+
+        let useranswers = [req.body.answer1, req.body.answer2, req.body.answer3, req.body.answer4, req.body.answer5];
+        
+        useranswers.forEach((x) => {
+                console.log(x);
+        });
+        
+        if(checkifblank(useranswers)){
+                postContent(req, res, useranswers);
+        }else{
+            res.send('You left an answer blank, midwit');
+        };
+});
