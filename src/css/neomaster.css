@@ -1,0 +1,39 @@
+body{
+    background-image: url('../imgs/background2.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.neobox{
+        display: flex;
+        flex-flow: column nowrap;
+        font-family: 'Source Code Pro';
+        background-color: white;
+        padding: 10px 10px 10px 10px;
+        margin: auto;
+        height: auto;
+        width: 40%;
+        border: 1px solid black;
+        text-align: center;
+}
+
+.smallbox{
+        text-align: left;
+        color: black;
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        width: auto;
+        margin: auto;
+}
+
+#smalltext {
+    font-size: 12px;
+    font-style: italic;
+}
+
+#resultimg{
+    height: 200px;
+    width: 250px;
+    margin: auto;
+}

@@ -4,11 +4,12 @@
     <meta charset="utf-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src=""></script>
-    <link rel="stylesheet" href="css/master.css">
+    <link rel="stylesheet" href="css/neomaster.css">
     <link href='https://fonts.googleapis.com/css?family=Anonymous Pro' rel='stylesheet'>
     <title>HisQuiz</title>
   </head>
   <body>
+    <!--
           <div class="box">
             <form action="/submit-user-data" method="post">
                     <h3>Question 1</h3>
@@ -32,5 +33,37 @@
             <p>I have made this site desu.</p>
             <img src="imgs/DesuDesu.gif">
           </div>
+        -->
+      <div class="neobox">
+            <h1> 🏛️HisApp🏛️</h1>
+            <p id="smalltext">'The quintessential history quiz'</p>
+            <div class = "smallbox">
+                <form action="/submit-user-data" method="post">
+                        <p>+=============================================+</p>
+                        <h3>Question 1</h3>
+                        <p><%=qst0%></p>
+                        <input name="answer1" type="text" /> <br />
+                        <p>+=============================================+</p>
+                        <h3>Question 2</h3>
+                        <p><%=qst1%></p>
+                        <input name="answer2" type="text" /> <br />
+                        <p>+=============================================+</p>
+                        <h3>Question 3</h3>
+                        <p><%=qst2%></p>
+                        <input name="answer3" type="text" /> <br />
+                        <p>+=============================================+</p>
+                        <h3>Question 4</h3>
+                        <p><%=qst3%></p>
+                        <input name="answer4" type="text" /> <br />
+                        <p>+=============================================+</p>
+                        <h3>Question 5</h3>
+                        <p><%=qst4%></p>
+                        <input name="answer5" type="text" /> <br />
+                        <p>+=============================================+</p>
+                        <p> When you've filled everything out, press this!</p>
+                        <input value="Submit" type="submit"/>
+                </form>
+            </div>
+        </div>
   </body>
 </html>

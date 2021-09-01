@@ -87,23 +87,28 @@ function iscorrect(answers, useranswers){
         if(resultobj.score < 2){
             console.log('GET GUD');
             resultobj['verdict'] = 'Get Gud';
+            resultobj['img'] = '<img id="resultimg" src="imgs/loss1.jpg">';
         } else if (resultobj.score < 5){
                 console.log('Learn 2 google pleb')
-                resultobj['verdict'] = 'Learn to Google midwit';
+                resultobj['verdict'] = 'Learn 2 google you pleb';
+                resultobj['img'] = '<img id="resultimg"src="imgs/loss2.jpg">';
         }else {
                 console.log('Winrar');
-                resultobj['verdict'] = 'A fellow man of culture I see.';
+                resultobj['verdict'] = 'It\'s always good to see another patrician.';
+                resultobj['img'] = '<img id="resultimg"src="imgs/winrar.jpg">';
         }
     return resultobj;
 }
 
 function checkifblank(array){
+        console.log(array);
         for(let x = 0; x < 5;x++){
                 // if user answer equals ''
-                if(array[x] === '' || undefined){
+                if(array[x] === '' || array[x] === undefined){
                         console.log('Invalid answer!');
                         return false;
                 } else{
+                        console.log(array[x]);
                         console.log('Answer is valid.');
             }
         }
@@ -148,7 +153,7 @@ app.get("/home", (req, res) => {
     checkCounter();
     neoContent(req, res);
 });
-// POST function for answers
+
 app.post('/submit-user-data', function (req, res){
         let useranswers = [req.body.answer1, req.body.answer2, req.body.answer3, req.body.answer4, req.body.answer5];
 
