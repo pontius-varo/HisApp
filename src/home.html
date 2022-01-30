@@ -5,40 +5,37 @@
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src=""></script>
     <link rel="stylesheet" href="css/neomaster.css">
+    <link rel="stylesheet" href="css/media.css">
     <link href='https://fonts.googleapis.com/css?family=Anonymous Pro' rel='stylesheet'>
-    <title>HisQuiz</title>
+    <title>HisApp</title>
   </head>
   <body>
-          <div class="neobox">
-                  <h1> 🏛️HisApp🏛️</h1>
-            <p id="smalltext">'The quintessential history quiz'</p>
-            <div class = "smallbox">
-                <form action="/submit-user-data" method="post">
-                        <p>+=============================================+</p>
-                        <h3>Question 1</h3>
-                        <p> Test </p>
-                        <input name="qs1" type="text" /> <br />
-                        <p>+=============================================+</p>
-                        <h3>Question 2</h3>
-                        <p> Test </p>
-                        <input name="qs2" type="text" /> <br />
-                        <p>+=============================================+</p>
-                        <h3>Question 3</h3>
-                        <p> Test </p>
-                        <input name="qs3" type="text" /> <br />
-                        <p>+=============================================+</p>
-                        <h3>Question 4</h3>
-                        <p> Test </p>
-                        <input name="qs4" type="text" /> <br />
-                        <p>+=============================================+</p>
-                        <h3>Question 5</h3>
-                        <p> Test </p>
-                        <input name="qs5" type="text" /> <br />
-                        <p>+=============================================+</p>
-                        <p> When you've filled everything out, press this!</p>
-                        <input value="Submit" type="submit"/>
-                </form>
-            </div>
-        </div>
+      <div class="wrapper">
+        <section  class="flexbox">
+          <div  class="header-text">
+            <h1>🏛️HisApp🏛️</h1>
+            <p  class="subtext">'The quintessential history quiz'</p>
+          </div>
+          <form action="/submit-user-data" method="post">
+                  <h3>Question 1</h3>
+                  <p> Test </p>
+                  <input name="qs1" type="text" /> <br />
+                  <h3>Question 2</h3>
+                  <p> Test </p>
+                  <input name="qs2" type="text" /> <br />
+                  <h3>Question 3</h3>
+                  <p> Test </p>
+                  <input name="qs3" type="text" /> <br />
+                  <h3>Question 4</h3>
+                  <p> Test </p>
+                  <input name="qs4" type="text" /> <br />
+                  <h3>Question 5</h3>
+                  <p> Test </p>
+                  <input name="qs5" type="text" /> <br />
+                  <p> When you've filled everything out, press this!</p>
+                  <input style="align-self: center;" value="Submit" type="submit"/>
+          </form>
+        </section>
+      </div>
   </body>
 </html>

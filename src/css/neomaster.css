@@ -1,39 +1,61 @@
-body{
-    background-image: url('../imgs/background2.png');
-    background-repeat: no-repeat;
-    background-size: cover;
+ @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+
+/* background-image: url('../imgs/background2.png'); */
+
+body, html{
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Press Start 2P', cursive;
 }
 
-.neobox{
-        display: flex;
-        flex-flow: column nowrap;
-        font-family: 'Source Code Pro';
-        background-color: white;
-        padding: 10px 10px 10px 10px;
-        margin: auto;
-        height: auto;
-        width: 40%;
-        border: 1px solid black;
-        text-align: center;
+
+.wrapper{
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: auto;
+
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+
+  background-image: url('../imgs/background2.png');
+  background-size: cover;
 }
 
-.smallbox{
-        text-align: left;
-        color: black;
-        display: flex;
-        flex-direction: column;
-        height: auto;
-        width: auto;
-        margin: auto;
+.flexbox{
+  display: flex;
+  flex-flow: column wrap;
+  background-color: white;
+
+  padding: 1rem;
+  border-radius: 25px;
+  border: 1px solid black;
 }
 
-#smalltext {
-    font-size: 12px;
+.header-text{
+  align-self: center;
+  text-align: center;
+}
+
+.header-text > h1{
+  font-size: 2rem;
+}
+
+.subtext {
+    font-size: .9rem;
     font-style: italic;
 }
 
-#resultimg{
-    height: 200px;
-    width: 250px;
-    margin: auto;
+.center{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.result-img{
+    height: 250px;
+    width: 350px;
 }

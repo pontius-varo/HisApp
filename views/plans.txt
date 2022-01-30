@@ -1,0 +1,8 @@
+Switch to mongo as db
+create a json object like the following:
+
+{
+    "question-id": "afdsffdssdf",
+    "question": "dafdsf",
+    "answer"  : "wfasdf"
+}

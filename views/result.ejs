@@ -5,27 +5,17 @@
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src=""></script>
     <link rel="stylesheet" href="css/neomaster.css">
-    <link href='https://fonts.googleapis.com/css?family=Anonymous Pro' rel='stylesheet'>
+    <link rel="stylesheet" href="css/media.css">
     <title>HisQuiz</title>
   </head>
   <body>
-    <!--
-          <div class="box">
-                <h2> Your Results: </h2>
-                <p><%=score%>/5</p>
-                <p>Verdict:</p>
-                <%-img%>
-                <p><b><%=verdict%></b></p>
-                <button onclick="location.href='http://localhost:9999/home'" >Return</button>
-          </div>
-    -->
     <div class="neobox">
           <h2> Your Results: </h2>
-          <p><b><%=score%>/5</b></p>
+          <p><b><%=result.score%>/5</b></p>
           <p>Verdict:</p>
-          <%-img%>
-          <p><b><%=verdict%></b></p>
-          <button onclick="location.href='http://localhost:9999/home'" >Return</button>
+          <img class="result-image" src="<%= result.image%>"/>
+          <p><b><%=result.verdict%></b></p>
+          <button onclick="location.href='http://localhost:2551/hisapp'" >Return</button>
     </div>
   </body>
 </html>
